@@ -1,0 +1,83 @@
+@startuml
+note "'Manage' usually include create, update, delete (or banned), read" as term1
+' Configuration
+left to right direction
+
+' Actors
+package Customer {
+  :Guest: as Guest
+  :Customer: as Cuz
+}
+
+:Administrator: as Admin
+
+' Extends
+Guest <|- Cuz
+
+rectangle "Sober E-commerce" {
+  ' Mgmt Functions
+  package "Mgmt" {
+    (Manage customer) as (customer.mgmt)
+    (Manage user) as (user.mgmt)
+    (Manage category) as (category.mgmt)
+    (Manage collection) as (collection.mgmt)
+    (Manage product) as (product.mgmt)
+    (Manage order) as (order.mgmt)
+    (Manage promotion) as (promotion.mgmt)
+    (Manage blog) as (blog.mgmt)
+    (Manage subscription) as (subscription.mgmt)
+    (Manage email) as (email.mgmt)
+  }
+
+  ' Functions
+  package "Features" {
+    (Login|Logout) as (login.logout)
+    (Register) as (register)
+    (Chatting) as (chatting)
+    (Subscribe news) as (subscribe.news)
+    (Browsing product) as (browsing.product)
+    (Check Out) as (check.out)
+    (Tracking order) as (tracking.order)
+    (My order) as (my.order)
+    (Cancelling order) as (cancelling.order)
+    (Payment) as (payment)
+  }
+
+  ' Relative functions
+  (my.order) <. (cancelling.order): extend
+  (check.out) .> (payment): include
+
+  ' Directions
+  ' Admin
+  Admin --> (customer.mgmt)
+  Admin --> (user.mgmt)
+  Admin --> (category.mgmt)
+  Admin --> (collection.mgmt)
+  Admin --> (product.mgmt)
+  Admin --> (promotion.mgmt)
+  Admin --> (blog.mgmt)
+  Admin --> (subscription.mgmt)
+  Admin --> (order.mgmt)
+  Admin --> (email.mgmt)
+
+  ' Guest
+  (subscribe.news) <-- Guest
+  (browsing.product) <-- Guest
+  (check.out) <-- Guest
+  (tracking.order) <-- Guest
+  (payment) <-- Guest
+  (register) <-- Guest
+
+  ' Customer
+  (my.order) <-- Cuz
+  (cancelling.order) <-- Cuz
+
+  ' Both
+  Admin --> (chatting)
+  (chatting) <-- Guest
+
+  Admin --> (login.logout)
+  (login.logout) <-- Cuz
+}
+
+@enduml

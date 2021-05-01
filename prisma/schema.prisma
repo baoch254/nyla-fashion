@@ -1,0 +1,288 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ************************
+// USER - STAFF
+model User {
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  email        String    @unique
+  phone        String    @unique
+  password     String
+  firstName    String
+  lastName     String
+  avatar       Json?
+  birthDate    DateTime?
+  roleId       Int
+  role         Role      @relation(fields: [roleId], references: [id])
+  isActive     Boolean   @default(true)
+  isGlobaAdmin Boolean   @default(false)
+}
+
+model Role {
+  id          Int               @id @default(autoincrement())
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  name        String            @unique
+  slug        String            @unique
+  users       User[]
+  permissions Role_Permission[]
+}
+
+model Permission {
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
+  constraint  String            @unique
+  description String            @db.VarChar(255)
+  roles       Role_Permission[]
+}
+
+model Role_Permission {
+  roleId       Int
+  permissionId Int
+  privilege    Int        @db.SmallInt
+  role         Role       @relation(fields: [roleId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+// ************************
+// PRODUCT
+model Collection {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+}
+
+model Size {
+  id         Int              @id @default(autoincrement())
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  name       String           @unique
+  slug       String           @unique
+  categoryId Int
+  category   Category         @relation(fields: [categoryId], references: [id])
+  products   Product_Detail[]
+}
+
+model Color {
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  name      String           @unique
+  slug      String           @unique
+  products  Product_Detail[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String    @unique
+  slug      String    @unique
+  sizes     Size[]
+  products  Product[]
+}
+
+model Product {
+  id           Int              @id @default(autoincrement())
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  name         String           @unique @db.VarChar(255)
+  slug         String           @unique @db.VarChar(255)
+  description  String           @db.Text
+  details      Product_Detail[]
+  price        Float
+  image        Json
+  categoryId   Int
+  category     Category         @relation(fields: [categoryId], references: [id])
+  collectionId Int?
+  collection   Collection?      @relation(fields: [collectionId], references: [id])
+}
+
+model Product_Detail {
+  id         Int                    @id @default(autoincrement())
+  createdAt  DateTime               @default(now())
+  updatedAt  DateTime               @updatedAt
+  productId  Int
+  product    Product                @relation(fields: [productId], references: [id])
+  sizeId     Int
+  size       Size                   @relation(fields: [sizeId], references: [id])
+  colorId    Int
+  color      Color                  @relation(fields: [colorId], references: [id])
+  stock      Int
+  price      Float
+  images     Product_Detail_Image[]
+  orderItems Order_Item?
+}
+
+model Product_Detail_Image {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  fromDetailID Int
+  fromDetail   Product_Detail @relation(fields: [fromDetailID], references: [id])
+  image        Json
+  order        Int
+}
+
+// ************************
+// CUSTOMER
+model Customer {
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  email           String            @unique
+  phone           String            @unique
+  password        String
+  firstName       String
+  lastName        String
+  avatar          Json?
+  orders          Order[]
+  shippingAddress Shipping_Address?
+  birthDate       DateTime?
+  isVerified      Boolean           @default(false)
+  isActive        Boolean           @default(true)
+}
+
+model Shipping_Address {
+  id         Int      @id @default(autoincrement())
+  updatedAt  DateTime @updatedAt
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: id)
+  fullName   String
+  address    String   @db.VarChar(255)
+  district   String
+  city       String
+}
+
+// ************************
+// ORDER
+model Order {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  customerId    Int
+  customer      Customer       @relation(fields: [customerId], references: id)
+  items         Order_Item[]
+  status        Order_Status
+  paymentMethod Payment_Method
+  tax           Float
+  shipping_fee  Float
+  totalPayment  Float
+}
+
+enum Order_Status {
+  NEW
+  CONFIRMED
+  CANCELLED
+  SHIPPING
+  DONE
+}
+
+enum Payment_Method {
+  COD
+  ZaloPay
+}
+
+model Order_Item {
+  id       Int            @id @default(autoincrement())
+  orderId  Int
+  order    Order          @relation(fields: [orderId], references: id)
+  itemId   Int
+  item     Product_Detail @relation(fields: [itemId], references: [id])
+  quantity Int
+  price    Float
+}
+
+model Promotion {
+  id          Int                @id @default(autoincrement())
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  name        String
+  description String             @db.Text
+  details     Promotion_Detail[]
+  isActive    Boolean            @default(false)
+}
+
+model Promotion_Detail {
+  id          Int            @id @default(autoincrement())
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  promotionId Int
+  promotion   Promotion      @relation(fields: [promotionId], references: [id])
+  startTime   DateTime
+  endTime     DateTime
+  amount      Float
+  unit        Promotion_Unit
+}
+
+enum Promotion_Unit {
+  PERCENT
+  DOLLA
+}
+
+// model Promotion_Scope {
+
+// }
+
+model Voucher {
+  id          Int            @id @default(autoincrement())
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  name String
+  isActive    Boolean            @default(false)
+}
+
+// ************************
+// Messenger
+model Channel {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  members   Member[]
+  messages  Message[]
+}
+
+model Member {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  fullName  String
+  avatar    Json?
+  channels  Channel[]
+  messeages Message[]
+  memberId  Int
+  type      Member_Type
+}
+
+enum Member_Type {
+  USER
+  CUSTOMER
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  content   String   @db.Text
+  channelId Int
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  senderId  Int
+  sender    Member   @relation(fields: [senderId], references: [id])
+
+  @@index([createdAt])
+}
