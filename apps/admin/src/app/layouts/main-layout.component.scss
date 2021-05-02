@@ -1,0 +1,38 @@
+.layout-wrapper {
+  height: 100%;
+}
+
+.layout-mask {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  cursor: pointer;
+  z-index: 990;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: display 2s linear 0.4s;
+
+  @media screen and (max-width: 960px) {
+    &.show {
+      display: block;
+    }
+  }
+}
+
+.layout-content {
+  display: block;
+  min-height: calc(100% - var(--topbar-height));
+  margin-left: var(--sidebar-width);
+  padding: 1.5rem;
+  background-color: var(--surface-b);
+  color: var(--text-color);
+  transition: margin-left 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+}
+
+@media screen and (max-width: 960px) {
+  .layout-content {
+    margin-left: 0;
+  }
+}

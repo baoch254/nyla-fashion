@@ -1,0 +1,13 @@
+<div class="layout-wrapper">
+  <div
+    (click)="toggleMenu()"
+    class="layout-mask"
+    [class]="{ show: isShowMenu }"
+  ></div>
+  <nl-topbar (toggleMenuEvent)="toggleMenu()"></nl-topbar>
+  <nl-sidebar [isShowMenu]="isShowMenu"></nl-sidebar>
+  <div class="layout-content">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    <router-outlet></router-outlet>
+  </div>
+</div>
