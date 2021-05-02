@@ -7,14 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from './app.routes';
 import { IconModule } from './core-ui';
+
+import { environment } from '../environments/environment';
+import { getAppConfigProvider } from './app-config/app-config.token';
+
 import {
   MainLayoutComponent,
   SidebarComponent,
   TopbarComponent,
 } from './layouts';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-
-const PrimeNGModules = [BreadcrumbModule];
 
 const LayoutComponents = [
   MainLayoutComponent,
@@ -29,10 +30,9 @@ const LayoutComponents = [
     BrowserAnimationsModule,
     CommonModule,
     IconModule,
-    PrimeNGModules,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [getAppConfigProvider(environment)],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -30,19 +30,29 @@ a {
   color: var(--text-color);
 }
 
-ul, li {
+.link-active {
+  font-weight: 700;
+}
+
+ul,
+li {
   list-style-type: none;
   color: var(--text-color);
 }
 
+*[role='button'],
+.cursor {
+  cursor: pointer;
+}
+
 section.content-section {
-  padding-top: 1rem;
 }
 
 .nl-card {
   background: #ffffff;
   padding: 1.5rem;
-  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;

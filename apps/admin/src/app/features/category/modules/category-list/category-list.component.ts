@@ -14,5 +14,92 @@ export interface Product {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryListComponent {
-  products: Product[] = [{}, {}];
+  products: Product[] = [
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+    {
+      code: 'ASBJI',
+      name: 'Iphone 12',
+      category: 'Apple Iphone',
+      quantity: 100,
+    },
+  ];
+
+  readonly routeKeys = ['Category'];
 }

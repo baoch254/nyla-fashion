@@ -1,6 +1,27 @@
 <section class="content-section">
-  <div class="nl-card">
-    <p-table [value]="products">
+  <nl-breadcrumb [keys]="routeKeys"></nl-breadcrumb>
+  <div class="nl-card p-mt-3">
+    <p-table [value]="products" [scrollable]="true">
+      <ng-template pTemplate="caption">
+        <div class="p-d-sm-flex p-jc-between p-ai-center">
+          <h3 class="p-mt-0 p-mb-2">List of Customers</h3>
+          <div class="p-d-flex">
+            <span class="p-input-icon-left p-mr-2">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Global Search" />
+            </span>
+            <button pButton type="button" label="Click"></button>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col style="width: 200px" />
+          <col style="width: 200px" />
+          <col style="width: 200px" />
+          <col style="width: 200px" />
+        </colgroup>
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>Code</th>

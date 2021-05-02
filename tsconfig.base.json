@@ -16,5 +16,8 @@
     "baseUrl": ".",
     "paths": {}
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "paths": {
+    "@nyla/admin/core-ui": ["./apps/admin/src/app/core-ui/index.ts"]
+  }
 }

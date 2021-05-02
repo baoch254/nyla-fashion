@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryListComponent } from './category-list.component';
 import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { NLBreadCrumbModule } from './../../../../core-ui';
 
 export const routes: Routes = [
   {
@@ -12,7 +15,14 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, TableModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    InputTextModule,
+    ButtonModule,
+    TableModule,
+    NLBreadCrumbModule,
+    RouterModule.forChild(routes),
+  ],
   declarations: [CategoryListComponent],
   exports: [CategoryListComponent],
 })

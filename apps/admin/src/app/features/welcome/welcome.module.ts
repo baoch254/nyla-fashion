@@ -1,9 +1,11 @@
+import { NLBreadCrumbModule } from './../../core-ui';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 
+const routes: Routes = [{ path: '', component: WelcomeComponent }];
 @NgModule({
-  imports: [WelcomeRoutingModule],
+  imports: [RouterModule.forChild(routes), NLBreadCrumbModule],
   declarations: [WelcomeComponent],
   exports: [WelcomeComponent],
 })

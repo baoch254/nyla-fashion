@@ -4,38 +4,16 @@
     <div class="sidebar-inner-scroll">
       <div class="sidebar-category">SUPPORT</div>
       <div class="sidebar-items">
-        <a class="router-link-exact-active" href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-      </div>
-      <div class="sidebar-category">SUPPORT</div>
-      <div class="sidebar-items">
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-      </div>
-      <div class="sidebar-category">SUPPORT</div>
-      <div class="sidebar-items">
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-      </div>
-      <div class="sidebar-category">SUPPORT</div>
-      <div class="sidebar-items">
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-      </div>
-      <div class="sidebar-category">SUPPORT</div>
-      <div class="sidebar-items">
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
-        <a href="/">Forum</a>
+        <a
+          routerLink="/"
+          routerLinkActive="link-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+        <a routerLinkActive="link-active" [routerLink]="'/welcome'">Welcome</a>
+        <a routerLinkActive="link-active" [routerLink]="'/category'"
+          >Category</a
+        >
       </div>
     </div>
   </aside>
