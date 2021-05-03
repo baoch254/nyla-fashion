@@ -1,0 +1,82 @@
+<div class="container">
+  <main class="main-site">
+    <div class="main-options">
+      <div class="breadcrumb-list">
+        <span class="breadcrumb-item">
+          <a href="/home">Home</a>
+        </span>
+        <span class="breadcrumb-item">Shop</span>
+      </div>
+      <div class="filter-options">
+        <a (click)="onToggleFilter()" class="btn-filter" role="button">
+          <span>Filter</span>
+          <svg-icon [key]="'chevronDown'"></svg-icon>
+        </a>
+        <select class="sort-select">
+          <option value="latest" selected>Sort by latest</option>
+          <option value="popularity">Sort by popularity</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-container" [class]="{ 'filter-opened': filterOpened }">
+      <div class="filter-group">
+        <h5>Categories</h5>
+        <ul>
+          <li>
+            <a role="button">Comestic</a>
+          </li>
+          <li class="has-subgroup">
+            <a role="button">Men</a>
+            <ul>
+              <li><a role="button">Shirts</a></li>
+              <li><a role="button">Shirts</a></li>
+              <li><a role="button">Shirts</a></li>
+              <li><a role="button">Shirts</a></li>
+              <li><a role="button">Shirts</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="filter-group">
+        <h5>Color</h5>
+        <ul>
+          <li><a role="button">Red</a></li>
+          <li><a role="button">Blue</a></li>
+          <li><a role="button">Black</a></li>
+          <li><a role="button">White</a></li>
+        </ul>
+      </div>
+      <div class="filter-group">
+        <h5>Size</h5>
+        <ul>
+          <li><a role="button">S</a></li>
+          <li><a role="button">M</a></li>
+          <li><a role="button">L</a></li>
+          <li><a role="button">X</a></li>
+          <li><a role="button">XL</a></li>
+          <li><a role="button">XXL</a></li>
+        </ul>
+      </div>
+      <div class="filter-group">
+        <h5>Price</h5>
+        <ul>
+          <li>
+            <span>Slider Here</span>
+          </li>
+          <li>
+            <span>Min Price: {{ 10 | currency }}</span>
+          </li>
+          <li>
+            <span>Max Price: {{ 100 | currency }}</span>
+          </li>
+          <li class="m-t-4">
+            <button class="btn btn-outline">Remove All</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-content">
+      <nl-product-list></nl-product-list>
+    </div>
+  </main>
+</div>

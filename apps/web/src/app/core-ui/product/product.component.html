@@ -1,0 +1,26 @@
+<div class="product">
+  <a class="product-link" href="/">
+    <div class="product-media">
+      <img
+        class="product-media-front"
+        src="assets/product-2-1-600x900.jpeg"
+        alt="Product Image"
+      />
+      <img
+        class="product-media-back"
+        src="assets/product-2-5-600x900.jpeg"
+        alt="Product Image"
+      />
+      <a class="product-media-btn" href="/">Select options</a>
+    </div>
+  </a>
+  <div class="product-meta product-sale">
+    <h5 class="product-name">Ripped Sweater</h5>
+    <span class="product-price">{{ 39.9 | currency }}</span>
+    <span class="product-new-price">{{ 30.0 | currency }}</span>
+    <ul class="product-color-list">
+      <li [style]="{ backgroundColor: '#000' }">&nbsp;</li>
+      <li>&nbsp;</li>
+    </ul>
+  </div>
+</div>

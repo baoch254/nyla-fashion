@@ -1,0 +1,103 @@
+#footer {
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,.11);
+}
+
+.footer-inner {
+  display: flex;
+  width: 100%;
+  padding: 40px 0;
+  // 5 cols
+  & > div {
+    display: inline-block;
+    width: 20%;
+  }
+
+  @media screen and (max-width: 920px) {
+    & {
+      padding: 1rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      // 2 cols
+      & > div {
+        width: 50%;
+        text-align: center;
+
+        &:not(:last-child) {
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    & {
+      padding: 0;
+
+      & > div {
+        width: 100%;
+        padding: 1rem 0;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid rgba(0,0,0,.11);
+        }
+      }
+    }
+  }
+}
+
+.footer-widget {
+  ul li {
+    line-height: 20px;
+    margin-top: 0.5rem;
+  }
+
+  .widget-title {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.footer-copyright {
+  padding: 0.625rem 0;
+  border-top: 1px solid rgba(0,0,0,.11);
+}
+
+.copyright-inner {
+  display: flex;
+  font-size: 12px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .copyright-left, copyright-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-branch-sm {
+    width: 18px;
+    height: 18px;
+  }
+
+  a:not(:first-child) {
+    color: var(--primary-color);
+    margin: 0 0.625rem;
+
+    &:hover {
+      color: #000000;
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    & {
+      padding: 0 1rem;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    & {
+      padding: 0;
+      justify-content: center;
+    }
+  }
+}

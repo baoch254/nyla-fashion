@@ -190,8 +190,13 @@
             "tsConfig": "apps/web/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
-            "styles": ["apps/web/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "node_modules/flickity/dist/flickity.min.css",
+              "apps/web/src/styles.scss"],
+            "scripts": [
+              "node_modules/flickity/dist/flickity.pkgd.min.js",
+              "node_modules/flickity-bg-lazyload/bg-lazyload.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,0 +1,30 @@
+.product-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  & > nl-product {
+    width: calc(25% - 1rem);
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 767px){
+    & > nl-product {
+      width: calc(calc(100% / 3) - 1rem);
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 575px){
+    & > nl-product {
+      width: calc(calc(100% / 2) - 1rem);
+    }
+  }
+
+  @media screen and (max-width: 419px){
+    & > nl-product {
+      width: 100%;
+    }
+  }
+}

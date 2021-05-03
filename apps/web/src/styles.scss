@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+//@import 'tailwindcss/components';
+//@import 'tailwindcss/utilities';
+
+:root {
+  --primary-color: rgba(0,0,0,.51);
+}
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--primary-color);
+  text-align: left;
+  background: #fff;
+  min-height: 100%;
+  transition: background .4s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000;
+  transition: color .15s ease;
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+main.main-content {
+  width: 100%;
+}
+
+.btn {
+  padding: 0.7rem 1.6rem;
+}
+
+.btn-outline {
+  border: 1px solid rgba(0, 0, 0, 0.11);
+}
+
+
+// Utilities
+.m-t-1 {
+  margin-top: 0.25rem;
+}
+
+.m-t-2 {
+  margin-top: 0.5rem;
+}
+
+.m-t-3 {
+  margin-top: 0.75rem;
+}
+
+.m-t-4 {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 575px){
+  .d-md-none {
+    display: none !important;
+  }
+}
