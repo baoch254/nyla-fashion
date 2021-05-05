@@ -5,7 +5,8 @@ import { AppConfig } from './../app/app-config/app.config';
 
 export const environment: AppConfig = {
   production: false,
-  baseURL: 'localhost:3333/api/',
+  baseURL: 'http://localhost:3333/api',
+  imgKey: 'b8fff5becefb83052a5cf5b7fa47721b',
 };
 
 /*

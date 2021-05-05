@@ -1,5 +1,6 @@
-<nl-navbar></nl-navbar>
-<div class='layout-content'>
+<nl-navbar (openCartEvent)="onToggleCart()"></nl-navbar>
+<nl-cart (hideCart)="displayCart = false" [displayCart]="displayCart"></nl-cart>
+<main class="layout-content">
   <router-outlet></router-outlet>
-</div>
+</main>
 <nl-footer></nl-footer>

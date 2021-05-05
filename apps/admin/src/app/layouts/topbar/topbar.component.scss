@@ -4,7 +4,7 @@
   align-items: center;
   height: var(--topbar-height);
   margin-left: var(--sidebar-width);
-  padding: 0 1rem;
+  padding: 0 2rem;
   transition: margin-left 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99);
   border-bottom: 1px solid var(--surface-d);
 }
@@ -14,6 +14,19 @@
   color: var(--text-color);
   transition: background-color 0.2s;
   cursor: pointer;
+}
+
+.topbar-menu {
+  display: flex;
+
+  & > * {
+    margin-left: 1rem;
+  }
+
+  & .nl-user-menu {
+    display: flex;
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 960px) {

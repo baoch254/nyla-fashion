@@ -1,0 +1,99 @@
+.product-detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .product-media {
+    display: flex;
+    justify-content: space-between;
+    width: calc(70% - 1rem);
+    height: calc(100vh - 5rem);
+
+    & .carousel-main {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .product-info {
+    width: calc(30% - 1rem);
+
+    & > * {
+      margin-bottom: 1rem;
+    }
+
+    .product-name {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .product-price {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .product-description {
+      margin-bottom: 2rem;
+    }
+
+    .product-size-list {
+      display: flex;
+      margin-bottom: 2rem;
+
+      & > li {
+        cursor: pointer;
+        text-align: center;
+        width: 25px;
+        height: 25px;
+        margin-right: 0.7rem;
+        border: 1px solid rgba(0, 0, 0, 0.11);
+      }
+    }
+  }
+}
+
+.carousel-cell {
+  display: block;
+  width: 100%; /* full width */
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.product-color-list > li {
+  width: 15px;
+  height: 15px;
+}
+
+.product-cart-actions {
+  display: flex;
+}
+
+.nl-inputNumber {
+  display: inline-block;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.11);
+  font-weight: 600;
+
+  & > .nl-inputNumber-value {
+    padding: 0 0.5rem;
+    font-size: 16px;
+  }
+
+  & > *:nth-child(odd) {
+    cursor: pointer;
+    font-size: 16px;
+  }
+}
+
+.btn-cart {
+  display: inline-block;
+  padding: 0.5rem 3rem;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.11);
+
+  &:hover {
+    color: #ffffff;
+    background: #000;
+  }
+}

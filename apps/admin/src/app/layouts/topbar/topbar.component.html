@@ -3,8 +3,15 @@
     <svg-icon [key]="'hamburgerMenu'" [size]="'xxl'"></svg-icon>
   </a>
   <div class="topbar-menu">
-    <a>ABC</a>
-    <a>ABC</a>
-    <a>ABC</a>
+    <h4>Bao Cao</h4>
+    <a class="nl-user-menu" role="button" (click)="menu.toggle($event)">
+      <i class="pi pi-user"></i
+      ><p-slideMenu
+        #menu
+        [model]="items"
+        [popup]="true"
+        [viewportHeight]="250"
+      ></p-slideMenu>
+    </a>
   </div>
 </div>

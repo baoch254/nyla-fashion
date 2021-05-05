@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'nl-navbar',
@@ -8,6 +13,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class NavbarComponent {
   menuMobileOpened = false;
+
+  @Output() openCartEvent = new EventEmitter<boolean>();
 
   onToggleMenuMobile(): void {
     this.menuMobileOpened = !this.menuMobileOpened;

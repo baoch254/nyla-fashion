@@ -71,19 +71,6 @@
       font-size: 1rem;
       margin: 0.4rem 0;
     }
-
-    .product-color-list {
-      display: flex;
-
-      & > li {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        margin-right: 5px;
-        border: 1px solid #ffffff;
-        outline: 1px solid #000000;
-      }
-    }
   }
 
   .product-sale {

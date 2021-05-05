@@ -37,8 +37,18 @@ a {
   }
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 .container {
   max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-product {
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -58,19 +68,95 @@ main.main-content {
 
 // Utilities
 .m-t-1 {
-  margin-top: 0.25rem;
+  margin-top: 0.25rem !important;
 }
 
 .m-t-2 {
-  margin-top: 0.5rem;
+  margin-top: 0.5rem !important;
 }
 
 .m-t-3 {
-  margin-top: 0.75rem;
+  margin-top: 0.75rem !important;
 }
 
 .m-t-4 {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
+}
+
+.m-b-4 {
+  margin-bottom: 1rem !important;
+}
+
+.m-b-5 {
+  margin-bottom: 1.5rem !important;
+}
+
+.m-b-6 {
+  margin-bottom: 2rem !important;
+}
+
+.m-r-2 {
+  margin-right: 0.5rem !important;
+}
+
+
+.p-t-2 {
+  padding-top: 0.5rem !important;
+}
+
+.p-t-4 {
+  padding-top: 1rem !important;
+}
+
+.p-x-4 {
+  padding: 0 1rem !important;
+}
+
+.p-y-4 {
+  padding: 1rem 0 !important;
+}
+
+// Overwrite PrimeNg Theme
+.p-slider .p-slider-range {
+  background: #000000 !important;
+}
+
+.p-slider .p-slider-handle {
+  border: 2px solid #000000;
+}
+
+.p-slider:not(.p-disabled) .p-slider-handle:hover {
+  background: #000000;
+  border-color: #000000;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #495057;
+}
+
+// breadcrumb
+.breadcrumb-list {
+  & > .breadcrumb-item {
+    &:not(:last-child):after {
+      content: '/';
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+.product-color-list {
+  display: flex;
+
+  & > li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border: 1px solid #ffffff;
+    outline: 1px solid #000000;
+  }
 }
 
 @media screen and (max-width: 575px){

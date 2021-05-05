@@ -21,7 +21,7 @@ model User {
   password     String
   firstName    String
   lastName     String
-  avatar       Json?
+  avatar       String?
   birthDate    DateTime?
   roleId       Int
   role         Role      @relation(fields: [roleId], references: [id])
@@ -69,17 +69,6 @@ model Collection {
 }
 
 model Size {
-  id         Int              @id @default(autoincrement())
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
-  name       String           @unique
-  slug       String           @unique
-  categoryId Int
-  category   Category         @relation(fields: [categoryId], references: [id])
-  products   Product_Detail[]
-}
-
-model Color {
   id        Int              @id @default(autoincrement())
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
@@ -88,14 +77,34 @@ model Color {
   products  Product_Detail[]
 }
 
+model Color {
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  name      String           @unique
+  slug      String           @unique
+  code      String
+  products  Product_Detail[]
+}
+
 model Category {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  name      String    @unique
-  slug      String    @unique
-  sizes     Size[]
-  products  Product[]
+  id            Int           @id @default(autoincrement())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  name          String        @unique
+  slug          String        @unique
+  subCategories SubCategory[]
+}
+
+model SubCategory {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  name       String
+  slug       String
+  products   Product[]
+  categoryId Int
+  category   Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Product {
@@ -107,11 +116,13 @@ model Product {
   description  String           @db.Text
   details      Product_Detail[]
   price        Float
-  image        Json
+  imageFront   String?
+  imageBack    String?
   categoryId   Int
-  category     Category         @relation(fields: [categoryId], references: [id])
+  category     SubCategory      @relation(fields: [categoryId], references: [id])
   collectionId Int?
   collection   Collection?      @relation(fields: [collectionId], references: [id])
+  isPublic     Boolean          @default(false)
 }
 
 model Product_Detail {
@@ -128,6 +139,8 @@ model Product_Detail {
   price      Float
   images     Product_Detail_Image[]
   orderItems Order_Item?
+
+  @@unique([sizeId, colorId, productId])
 }
 
 model Product_Detail_Image {
@@ -136,8 +149,7 @@ model Product_Detail_Image {
   updatedAt    DateTime       @updatedAt
   fromDetailID Int
   fromDetail   Product_Detail @relation(fields: [fromDetailID], references: [id])
-  image        Json
-  order        Int
+  image        String
 }
 
 // ************************
@@ -151,7 +163,7 @@ model Customer {
   password        String
   firstName       String
   lastName        String
-  avatar          Json?
+  avatar          String?
   orders          Order[]
   shippingAddress Shipping_Address?
   birthDate       DateTime?
@@ -173,16 +185,19 @@ model Shipping_Address {
 // ************************
 // ORDER
 model Order {
-  id            Int            @id @default(autoincrement())
-  createdAt     DateTime       @default(now())
-  customerId    Int
-  customer      Customer       @relation(fields: [customerId], references: id)
-  items         Order_Item[]
-  status        Order_Status
-  paymentMethod Payment_Method
-  tax           Float
-  shipping_fee  Float
-  totalPayment  Float
+  id                Int            @id @default(autoincrement())
+  createdAt         DateTime       @default(now())
+  customerId        Int?
+  customer          Customer?      @relation(fields: [customerId], references: id)
+  items             Order_Item[]
+  status            Order_Status
+  paymentMethod     Payment_Method
+  tax               Float
+  shippingFee       Float
+  shippingAddressId Int
+  shippingAddress   Order_Shipping @relation(fields: [shippingAddressId], references: id)
+  totalPayment      Float
+  note              String         @db.Text
 }
 
 enum Order_Status {
@@ -195,7 +210,7 @@ enum Order_Status {
 
 enum Payment_Method {
   COD
-  ZaloPay
+  PAYPAL
 }
 
 model Order_Item {
@@ -206,6 +221,16 @@ model Order_Item {
   item     Product_Detail @relation(fields: [itemId], references: [id])
   quantity Int
   price    Float
+}
+
+model Order_Shipping {
+  id          Int    @id @default(autoincrement())
+  order       Order?
+  fullName    String
+  phoneNumber String
+  address     String @db.VarChar(255)
+  district    String
+  city        String
 }
 
 model Promotion {
@@ -240,11 +265,13 @@ enum Promotion_Unit {
 // }
 
 model Voucher {
-  id          Int            @id @default(autoincrement())
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  name String
-  isActive    Boolean            @default(false)
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  startTime DateTime
+  endTime   DateTime
+  isActive  Boolean  @default(false)
 }
 
 // ************************
@@ -263,7 +290,7 @@ model Member {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   fullName  String
-  avatar    Json?
+  avatar    String?
   channels  Channel[]
   messeages Message[]
   memberId  Int

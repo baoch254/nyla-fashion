@@ -15,6 +15,20 @@ export const appRoutes: Routes = [
         path: 'shop',
         loadChildren: () => import('./features/shop').then((m) => m.ShopModule),
       },
+      {
+        path: 'product',
+        loadChildren: () =>
+          import('./features/product').then((m) => m.ProductModule),
+      },
+      {
+        path: 'payment',
+        loadChildren: () =>
+          import('./features/payment').then((m) => m.PaymentModule),
+      },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];

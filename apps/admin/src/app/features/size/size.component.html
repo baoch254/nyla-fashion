@@ -1,0 +1,16 @@
+<section class="content-section">
+  <nl-breadcrumb [keys]="routeKeys"></nl-breadcrumb>
+  <div class="nl-card p-mt-3">
+    <nl-size-table
+      *ngIf="sizes$ | async as sizes"
+      [itemList]="sizes"
+      (deleteEvent)="onDelete($event)"
+      (editSaveEvent)="onSave($event)"
+    ></nl-size-table>
+    <p-paginator
+      (onPageChange)="onChangePage($event)"
+      [rows]="10"
+      [totalRecords]="totalRecords"
+    ></p-paginator>
+  </div>
+</section>

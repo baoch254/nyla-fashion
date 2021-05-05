@@ -1,0 +1,134 @@
+<p-table
+  [value]="categories"
+  [scrollable]="true"
+  [dataKey]="dataKey"
+  [editMode]="editMode"
+  [editingRowKeys]="editingRowKeys"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-sm-flex p-jc-between p-ai-center">
+      <h3 class="p-mt-0 p-mb-2">List of Categories</h3>
+      <div class="p-d-flex">
+        <span class="p-input-icon-left p-mr-2">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Global Search" />
+        </span>
+        <button
+          pButton
+          type="button"
+          label="New row"
+          (click)="onNewRow()"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="colgroup">
+    <colgroup>
+      <col style="width: 20%" />
+      <col style="width: 20%" />
+      <col style="width: 20%" />
+      <col style="width: 20%" />
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <!--  <ng-template pTemplate="body" let-category>-->
+  <!--    <tr>-->
+  <!--      <td>{{ category.id }}</td>-->
+  <!--      <td>{{ category.name }}</td>-->
+  <!--      <td>{{ category.createdAt | date: 'medium' }}</td>-->
+  <!--      <td>{{ category.updatedAt | date: 'medium' }}</td>-->
+  <!--    </tr>-->
+  <!--  </ng-template>-->
+  <ng-template
+    pTemplate="body"
+    let-category
+    let-editing="editing"
+    let-ri="rowIndex"
+  >
+    <tr [pEditableRow]="category">
+      <td>
+        {{ category.id < 0 ? 'NEW' : category.id }}
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="category.name"
+              required
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ category.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>{{ category.createdAt | date: 'medium' }}</td>
+      <td>{{ category.updatedAt | date: 'medium' }}</td>
+      <td>
+        <button
+          *ngIf="category.id !== -1"
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-eye"
+          (click)="onView(category)"
+          class="p-button-rounded p-button-text"
+        ></button>
+        <button
+          *ngIf="!editing"
+          pButton
+          pRipple
+          type="button"
+          pInitEditableRow
+          icon="pi pi-pencil"
+          (click)="onRowEditInit(category)"
+          class="p-button-rounded p-button-text"
+        ></button>
+        <button
+          *ngIf="!editing"
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          (click)="onRowDelete(category)"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pSaveEditableRow
+          icon="pi pi-check"
+          (click)="onRowEditSave(category)"
+          class="p-button-rounded p-button-text p-button-success p-mr-2"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pCancelEditableRow
+          icon="pi pi-times"
+          (click)="onRowEditCancel(category, ri)"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td style="text-align: center" [attr.colspan]="5">No records found</td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,113 @@
+<p-table
+  [value]="itemList"
+  [scrollable]="true"
+  [dataKey]="dataKey"
+  [editMode]="editMode"
+  [editingRowKeys]="editingRowKeys"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-sm-flex p-jc-between p-ai-center">
+      <h3 class="p-mt-0 p-mb-2">List of Sizes</h3>
+      <div class="p-d-flex">
+        <span class="p-input-icon-left p-mr-2">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Global Search" />
+        </span>
+        <button
+          pButton
+          type="button"
+          label="New row"
+          (click)="onNewRow()"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="colgroup">
+    <colgroup>
+      <col style="width: 50px" />
+      <col style="width: 200px" />
+      <col style="width: 200px" />
+      <col style="width: 200px" />
+      <col style="width: 100px" />
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-item
+    let-editing="editing"
+    let-ri="rowIndex"
+  >
+    <tr [pEditableRow]="item">
+      <td>
+        {{ item.id < 0 ? 'NEW' : item.id }}
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="item.name" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>{{ item.createdAt | date: 'medium' }}</td>
+      <td>{{ item.updatedAt | date: 'medium' }}</td>
+      <td>
+        <button
+          *ngIf="!editing"
+          pButton
+          pRipple
+          type="button"
+          pInitEditableRow
+          icon="pi pi-pencil"
+          (click)="onRowEditInit(item)"
+          class="p-button-rounded p-button-text"
+        ></button>
+        <button
+          *ngIf="!editing"
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          (click)="onRowDelete(item)"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pSaveEditableRow
+          icon="pi pi-check"
+          (click)="onRowEditSave(item)"
+          class="p-button-rounded p-button-text p-button-success p-mr-2"
+        ></button>
+        <button
+          *ngIf="editing"
+          pButton
+          pRipple
+          type="button"
+          pCancelEditableRow
+          icon="pi pi-times"
+          (click)="onRowEditCancel(item, ri)"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td style="text-align: center" [attr.colspan]="5">No records found</td>
+    </tr>
+  </ng-template>
+</p-table>

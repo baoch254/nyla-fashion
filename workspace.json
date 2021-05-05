@@ -191,6 +191,10 @@
             "aot": true,
             "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/flickity/dist/flickity.min.css",
               "apps/web/src/styles.scss"],
             "scripts": [

@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'nl-topbar',
@@ -13,4 +14,12 @@ import {
 })
 export class TopbarComponent {
   @Output() toggleMenuEvent = new EventEmitter<boolean>();
+
+  items: MenuItem[] = [
+    {
+      label: 'Welcome',
+      icon: 'pi pi-fw pi-user-plus',
+      routerLink: '/welcome',
+    },
+  ];
 }

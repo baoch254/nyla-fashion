@@ -2,18 +2,17 @@
   <aside class="sidebar-menu">
     <a href="/" class="sidebar-logo"> NYLA </a>
     <div class="sidebar-inner-scroll">
-      <div class="sidebar-category">SUPPORT</div>
-      <div class="sidebar-items">
-        <a
-          routerLink="/"
-          routerLinkActive="link-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Home</a
-        >
+      <div class="sidebar-items p-my-3">
         <a routerLinkActive="link-active" [routerLink]="'/welcome'">Welcome</a>
+      </div>
+      <div class="sidebar-category">PRODUCT</div>
+      <div class="sidebar-items">
         <a routerLinkActive="link-active" [routerLink]="'/category'"
           >Category</a
         >
+        <a routerLinkActive="link-active" [routerLink]="'/product'">Product</a>
+        <a routerLinkActive="link-active" [routerLink]="'/color'">Color</a>
+        <a routerLinkActive="link-active" [routerLink]="'/size'">Size</a>
       </div>
     </div>
   </aside>

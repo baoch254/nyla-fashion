@@ -1,49 +1,53 @@
-<header id='header'>
-  <div class='container'>
-    <div class='header-inner'>
-      <div class='header-left'>
-        <div class='logo-branch'>
-          <a href='/'>
-            <img src='assets/logo-nyla-dark.svg' alt='Logo NYLA'>
+<header id="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-branch">
+          <a href="/">
+            <img src="assets/logo-nyla-dark.svg" alt="Logo NYLA" />
           </a>
         </div>
-        <nav class='navbar-nav'>
-          <ul class='nav-menu'>
-            <li class='menu-item'>
-              <a routerLink='/home' routerLinkActive='link-active'>Home</a>
+        <nav class="navbar-nav">
+          <ul class="nav-menu">
+            <li class="menu-item">
+              <a routerLink="/home" routerLinkActive="link-active">Home</a>
             </li>
-            <li class='menu-item'>
-              <a routerLink='/shop' routerLinkActive='link-active'>Shop</a>
+            <li class="menu-item">
+              <a routerLink="/shop" routerLinkActive="link-active">Shop</a>
             </li>
           </ul>
         </nav>
-        <div class='navbar-nav-mobile'>
-          <a (click)='onToggleMenuMobile()' role='button' class='menu-button-mb'>
-            <svg-icon [key]="'hamburgerMenu'" size='xl'></svg-icon>
+        <div class="navbar-nav-mobile">
+          <a
+            (click)="onToggleMenuMobile()"
+            role="button"
+            class="menu-button-mb"
+          >
+            <svg-icon [key]="'hamburgerMenu'" size="xl"></svg-icon>
           </a>
-          <ul class='nav-menu-mb' [class]="{'menu-opened': menuMobileOpened}">
-            <li class='menu-item'>
-              <a href='/login'>Register / Login</a>
-              <svg-icon [key]="'chevronRight'" size='lg'></svg-icon>
+          <ul class="nav-menu-mb" [class]="{ 'menu-opened': menuMobileOpened }">
+            <li class="menu-item">
+              <a href="/login">Register / Login</a>
+              <svg-icon [key]="'chevronRight'" size="lg"></svg-icon>
             </li>
-            <li class='menu-item'>
-              <a href='/home'>Home</a>
-              <svg-icon [key]="'chevronRight'" size='lg'></svg-icon>
+            <li class="menu-item">
+              <a href="/home">Home</a>
+              <svg-icon [key]="'chevronRight'" size="lg"></svg-icon>
             </li>
-            <li class='menu-item'>
-              <a href='/shop'>Shop</a>
-              <svg-icon [key]="'chevronRight'" size='lg'></svg-icon>
+            <li class="menu-item">
+              <a href="/shop">Shop</a>
+              <svg-icon [key]="'chevronRight'" size="lg"></svg-icon>
             </li>
           </ul>
         </div>
       </div>
-      <div class='header-right'>
-        <a class='d-md-none' href='/login'>Register / Login</a>
-        <a href='/wishlist'>
+      <div class="header-right">
+        <a class="d-md-none" href="/login">Register / Login</a>
+        <a href="/wishlist">
           <svg-icon [key]="'wishListHeart'"></svg-icon>
         </a>
-        <a href='/cart'>
-          <svg-icon [key]="'shoppingCart'" size='lg'></svg-icon>
+        <a (click)="openCartEvent.emit()">
+          <svg-icon [key]="'shoppingCart'" size="lg"></svg-icon>
         </a>
       </div>
     </div>

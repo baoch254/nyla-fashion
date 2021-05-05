@@ -1,26 +1,17 @@
-import { SlugifyService } from './../../common';
 import { ApiDataAccessService } from './../../db';
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
+  ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from '.prisma/client';
+import { Prisma } from '.prisma/client';
 
 @Injectable()
 export class CategoryService {
-  constructor(
-    private readonly data: ApiDataAccessService,
-    private slug: SlugifyService
-  ) {}
+  constructor(private readonly data: ApiDataAccessService) {}
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    const { name } = createCategoryDto;
-    const slug = this.slug.slugify(name);
-
+  async create(data: Prisma.CategoryCreateInput) {
+    const { name, slug } = data;
     const existData = await this.data.category.findFirst({
       where: {
         OR: [
@@ -39,41 +30,93 @@ export class CategoryService {
     }
 
     return await this.data.category.create({
-      data: { name, slug: this.slug.slugify(name) },
+      data,
     });
   }
 
-  async findAll(): Promise<Category[]> {
-    return await this.data.category.findMany();
+  async findAll(params: { skip?: number; take?: number; include?: number }) {
+    const { skip, take, include } = params;
+
+    let qParams = {};
+    if (+skip >= 0) {
+      qParams = { ...qParams, skip: +skip };
+    }
+
+    if (+take >= 0) {
+      qParams = { ...qParams, take: +take };
+    }
+
+    let qInclude = null;
+    if (+include > 0) {
+      qInclude = {
+        subCategories: true,
+      };
+    }
+
+    const qTotalRecords = this.data.category.count();
+    const qResults = this.data.category.findMany({
+      ...qParams,
+      include: qInclude,
+    });
+
+    const [results, totalRecords] = await this.data.$transaction([
+      qResults,
+      qTotalRecords,
+    ]);
+
+    return {
+      results,
+      totalRecords,
+    };
   }
 
-  async findOne(id: number): Promise<Category> {
-    return await this.data.category.findUnique({
-      where: {
-        id,
+  findOne(categoryWhereUniqueInput: Prisma.CategoryWhereUniqueInput) {
+    return this.data.category.findUnique({
+      where: categoryWhereUniqueInput,
+      include: {
+        subCategories: true,
       },
     });
   }
 
   async update(
-    id: number,
-    updateCategoryDto: UpdateCategoryDto
-  ): Promise<Category> {
-    const { name } = updateCategoryDto;
+    where: Prisma.CategoryWhereUniqueInput,
+    data: Prisma.CategoryUpdateInput
+  ) {
+    const { name, slug } = data as { name: string; slug: string };
+
+    const existData = await this.data.category.findFirst({
+      where: {
+        name,
+        slug,
+      },
+    });
+
+    if (existData && existData.id !== where.id) {
+      throw new BadRequestException('The name is existed!');
+    }
 
     return await this.data.category.update({
-      where: {
-        id,
-      },
-      data: { name, slug: this.slug.slugify(name) },
+      where,
+      data,
     });
   }
 
-  async remove(id: number): Promise<Category> {
-    return await this.data.category.delete({
+  async remove(where: Prisma.CategoryWhereUniqueInput) {
+    const hasRelatedData = await this.data.subCategory.findFirst({
       where: {
-        id,
+        categoryId: where.id,
       },
+    });
+
+    if (hasRelatedData) {
+      throw new ConflictException(
+        'Can not delete this data because it related to other data'
+      );
+    }
+
+    return await this.data.category.delete({
+      where,
     });
   }
 }

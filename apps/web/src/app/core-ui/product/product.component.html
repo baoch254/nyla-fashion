@@ -1,26 +1,33 @@
 <div class="product">
-  <a class="product-link" href="/">
+  <a class="product-link" [routerLink]="['/product', product.slug]">
     <div class="product-media">
       <img
         class="product-media-front"
-        src="assets/product-2-1-600x900.jpeg"
+        src="{{ product.imageFront || defaultImage }}"
         alt="Product Image"
       />
       <img
         class="product-media-back"
-        src="assets/product-2-5-600x900.jpeg"
+        src="{{ product.imageBack || defaultImage }}"
         alt="Product Image"
       />
-      <a class="product-media-btn" href="/">Select options</a>
+      <a class="product-media-btn" [routerLink]="['/product', product.slug]"
+        >Select options</a
+      >
     </div>
   </a>
-  <div class="product-meta product-sale">
-    <h5 class="product-name">Ripped Sweater</h5>
-    <span class="product-price">{{ 39.9 | currency }}</span>
-    <span class="product-new-price">{{ 30.0 | currency }}</span>
+  <div class="product-meta">
+    <h5 class="product-name">{{ product.name }}</h5>
+    <span class="product-price">{{ product.price | currency }}</span>
     <ul class="product-color-list">
-      <li [style]="{ backgroundColor: '#000' }">&nbsp;</li>
-      <li>&nbsp;</li>
+      <ng-container *ngIf="details?.length">
+        <li
+          *ngFor="let detail of details"
+          [style]="{ backgroundColor: detail?.color?.code || '#ffffff' }"
+        >
+          &nbsp;
+        </li>
+      </ng-container>
     </ul>
   </div>
 </div>

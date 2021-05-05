@@ -1,0 +1,46 @@
+<p-sidebar
+  [(visible)]="displayCart"
+  [position]="'right'"
+  (onHide)="hideCart.emit()"
+>
+  <div class="cart-content">
+    <ng-container *ngIf="cartItems?.length; else noItems">
+      <ul>
+        <li *ngFor="let item of cartItems; let idx = index">
+          <h5 style="font-size: 20px">
+            #{{ idx + 1 }}: {{ item?.detail?.product?.name }}
+          </h5>
+          <p>
+            {{ item?.detail?.size?.name }} -
+            {{ item?.detail?.color?.name }}
+          </p>
+          <p>
+            {{ item?.detail?.price | currency }} x {{ item?.quantity }} =
+            <ng-template
+              [ngIf]="
+                item?.detail?.price &&
+                item.detail.price != null &&
+                item?.quantity &&
+                item.quantity != null
+              "
+            >
+              {{ item.detail.price * item.quantity | currency }}
+            </ng-template>
+          </p>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-template #noItems>
+      <p>No item selected</p>
+    </ng-template>
+    <div class="m-t-4">
+      <button
+        *ngIf="cartItems.length > 0"
+        (click)="onNavigatePayment()"
+        class="btn btn-outline"
+      >
+        Check out
+      </button>
+    </div>
+  </div>
+</p-sidebar>

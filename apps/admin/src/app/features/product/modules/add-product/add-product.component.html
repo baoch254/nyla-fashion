@@ -1,0 +1,68 @@
+<section class="content-section">
+  <nl-breadcrumb [keys]="routeKeys"></nl-breadcrumb>
+  <ng-container *ngIf="vm$ | async as vm">
+    <div class="nl-card p-mt-3">
+      <div class="p-grid">
+        <div class="p-col-12 p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+            <label>Product name</label>
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="product.name"
+              placeholder="Product name"
+            />
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label>Pricing</label>
+            <p-inputNumber
+              placeholder="Pricing"
+              prefix="$"
+              mode="decimal"
+              class="p-d-block"
+              [(ngModel)]="product.price"
+              [min]="0"
+              [minFractionDigits]="2"
+            ></p-inputNumber>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label>Category</label>
+            <p-dropdown
+              [(ngModel)]="categorySelected"
+              [options]="vm.categories"
+              (onChange)="onChooseCategory($event)"
+              [autoDisplayFirst]="false"
+              optionLabel="name"
+            ></p-dropdown>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label>Sub Category</label>
+            <p-dropdown
+              [(ngModel)]="product.categoryId"
+              [options]="subCategorySelecting"
+              [autoDisplayFirst]="false"
+              optionLabel="name"
+              optionValue="id"
+            ></p-dropdown>
+          </div>
+          <div class="p-field p-col-12">
+            <label>Description</label>
+            <textarea
+              [(ngModel)]="product.description"
+              pInputTextarea
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="p-d-flex p-jc-end p-x-3">
+        <button
+          pButton
+          type="button"
+          label="New Product"
+          class="p-mr-3"
+          (click)="onCreateProduct()"
+        ></button>
+      </div>
+    </div>
+  </ng-container>
+</section>

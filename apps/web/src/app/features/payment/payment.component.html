@@ -1,0 +1,92 @@
+<div class="container-product p-t-4">
+  <div class="p-grid">
+    <p-card class="p-col-12 p-lg-8">
+      <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+          <label>Firstname</label>
+          <input type="text" pInputText />
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label>Lastname</label>
+          <input type="text" pInputText />
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label>Address</label>
+          <input type="text" pInputText />
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label>Phone</label>
+          <p-inputMask
+            mask="(999) 999-9999"
+            placeholder="(999) 999-9999"
+          ></p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label>District</label>
+          <input type="text" pInputText />
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label>City</label>
+          <input type="text" pInputText />
+        </div>
+      </div>
+    </p-card>
+    <p-card class="p-col-12 p-lg-4">
+      <ng-container *ngIf="cartItems?.length; else noItems">
+        <ul class="m-b-4">
+          <li *ngFor="let item of cartItems; let idx = index">
+            <h5 style="font-size: 20px">
+              #{{ idx + 1 }}: {{ item?.detail?.product?.name }}
+            </h5>
+            <p>
+              {{ item?.detail?.size?.name }} -
+              {{ item?.detail?.color?.name }}
+            </p>
+            <p>
+              {{ item?.detail?.price | currency }} x {{ item?.quantity }} =
+              <ng-template
+                [ngIf]="
+                  item?.detail?.price &&
+                  item.detail.price != null &&
+                  item?.quantity &&
+                  item.quantity != null
+                "
+              >
+                {{ item.detail.price * item.quantity | currency }}
+              </ng-template>
+            </p>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #noItems>
+        <p class="m-b-4">No item selected</p>
+      </ng-template>
+      <div class="payment-options">
+        <div class="p-field-radiobutton">
+          <p-radioButton
+            name="cod"
+            value="COD"
+            [(ngModel)]="paymentOption"
+            inputId="cod1"
+          ></p-radioButton>
+          <label for="cod1">COD</label>
+        </div>
+        <div class="p-field-radiobutton">
+          <p-radioButton
+            name="paypal"
+            value="PAYPAL"
+            [(ngModel)]="paymentOption"
+            inputId="paypal1"
+            [disabled]="true"
+          ></p-radioButton>
+          <label for="paypal1">PAYPAL</label>
+        </div>
+      </div>
+      <div class="payment-actions">
+        <button *ngIf="cartItems.length > 0" class="btn btn-outline m-t-4">
+          Payment
+        </button>
+      </div>
+    </p-card>
+  </div>
+</div>

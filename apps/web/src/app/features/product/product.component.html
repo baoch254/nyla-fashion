@@ -1,1 +1,71 @@
-<p>product works!</p>
+<div class="container-product">
+  <div class="breadcrumb-list p-y-4">
+    <span class="breadcrumb-item">
+      <a href="/home">Home</a>
+    </span>
+    <span class="breadcrumb-item">{{ product?.category?.name }}</span>
+    <span class="breadcrumb-item">{{ product?.category?.category?.name }}</span>
+    <span class="breadcrumb-item">{{ product?.name }}</span>
+  </div>
+  <div class="product-detail m-b-6">
+    <div class="product-media">
+      <div class="carousel-main">
+        <ng-container *ngFor="let img of images">
+          <div
+            class="carousel-cell"
+            [attr.data-flickity-bg-lazyload]="img"
+          ></div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="product-info">
+      <h5 class="product-name">{{ product?.name }}</h5>
+      <p class="product-price">{{ product?.price | currency }}</p>
+      <p class="product-description">
+        {{ product?.description }}
+      </p>
+      <ul class="product-color-list">
+        <ng-container *ngIf="colors?.length">
+          <li
+            class="cursor"
+            *ngFor="let color of colors"
+            (click)="onChooseColor(color)"
+            [style]="{ backgroundColor: color || '#ffffff' }"
+          >
+            &nbsp;
+          </li>
+        </ng-container>
+      </ul>
+      <ul class="product-size-list">
+        <ng-container *ngFor="let detail of detailShowing">
+          <li
+            *ngIf="detail.stock && detail.stock > 0"
+            class="product-size-item"
+          >
+            <a role="button" (click)="onSelectDetail(detail)">{{
+              detail.size?.name
+            }}</a>
+          </li>
+        </ng-container>
+      </ul>
+      <div class="product-cart-actions">
+        <div class="nl-inputNumber m-r-2">
+          <span class="cursor" (click)="onChangeQuantity(-1)">-</span>
+          <span class="nl-inputNumber-value">{{ quantitySelected }}</span>
+          <span class="cursor" (click)="onChangeQuantity(+1)">+</span>
+        </div>
+        <button (click)="onAddToCart()" class="btn btn-cart">
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="product-reviews m-b-4">
+    <h5>Reviews</h5>
+    <p>There are no reviews yet.</p>
+  </div>
+  <div class="product-related m-b-4">
+    <h2 style="font-size: 20px" class="m-b-4">Related Products</h2>
+    <nl-product-list [products]="relatedProducts"></nl-product-list>
+  </div>
+</div>

@@ -1,52 +1,61 @@
 import { HttpExceptionFilter } from './../../exception/http-exception.filter';
-import { Category } from '.prisma/client';
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseFilters,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Req,
+  UseFilters,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { SaveCategoryDto } from './dto/save-category.dto';
+import { SlugifyService } from '../../common';
+import { Request } from 'express';
 
 @Controller('category')
 @UseFilters(new HttpExceptionFilter())
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly slug: SlugifyService,
+    private readonly service: CategoryService
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
-    return this.categoryService.create(createCategoryDto);
+  create(@Body() createCategoryDto: SaveCategoryDto) {
+    const { name } = createCategoryDto;
+    const slug = this.slug.slugify(name);
+    return this.service.create({ name, slug });
   }
 
   @Get()
-  findAll(): Promise<Category[]> {
-    return this.categoryService.findAll();
+  findAll(@Req() req: Request) {
+    return this.service.findAll(req.query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Category> {
-    return this.categoryService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne({ id });
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCategoryDto: SaveCategoryDto
   ) {
-    return this.categoryService.update(+id, updateCategoryDto);
+    const { name } = updateCategoryDto;
+    const slug = this.slug.slugify(name);
+    return this.service.update({ id }, { name, slug });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<Category> {
-    return this.categoryService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.service.remove({ id });
   }
 }

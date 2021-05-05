@@ -1,11 +1,11 @@
 <div class="product-list">
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
-  <nl-product></nl-product>
+  <ng-template [ngIf]="products?.length" [ngIfElse]="noAvailable">
+    <nl-product
+      *ngFor="let product of products"
+      [product]="product"
+    ></nl-product>
+  </ng-template>
+  <ng-template #noAvailable>
+    <p>No available products</p>
+  </ng-template>
 </div>

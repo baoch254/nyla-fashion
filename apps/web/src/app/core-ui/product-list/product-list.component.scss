@@ -1,11 +1,12 @@
 .product-list {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
   flex-wrap: wrap;
 
   & > nl-product {
     width: calc(25% - 1rem);
+    margin-left: 1rem;
     margin-bottom: 1rem;
   }
 

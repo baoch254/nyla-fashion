@@ -17,6 +17,20 @@ export const appRoutes: Routes = [
         loadChildren: () =>
           import('./features/category').then((m) => m.CategoryModule),
       },
+      {
+        path: 'product',
+        loadChildren: () =>
+          import('./features/product').then((m) => m.ProductModule),
+      },
+      {
+        path: 'color',
+        loadChildren: () =>
+          import('./features/color').then((m) => m.ColorModule),
+      },
+      {
+        path: 'size',
+        loadChildren: () => import('./features/size').then((m) => m.SizeModule),
+      },
     ],
   },
 ];

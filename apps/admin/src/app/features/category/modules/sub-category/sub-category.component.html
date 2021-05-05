@@ -1,0 +1,16 @@
+<section class="content-section">
+  <nl-breadcrumb [keys]="routeKeys"></nl-breadcrumb>
+  <div class="nl-card p-mt-3">
+    <nl-sub-category-table
+      *ngIf="subCategories$ | async as subCategories"
+      [itemList]="subCategories"
+      (deleteEvent)="onDelete($event)"
+      (editSaveEvent)="onSave($event)"
+    ></nl-sub-category-table>
+    <p-paginator
+      (onPageChange)="onChangePage($event)"
+      [rows]="10"
+      [totalRecords]="totalRecords"
+    ></p-paginator>
+  </div>
+</section>
